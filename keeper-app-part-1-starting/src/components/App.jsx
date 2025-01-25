@@ -4,13 +4,12 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
-
 function App() {
   const [notes, setNotes] = useState([]);
-
+const BACKEND_URL=process.env.REACT_APP_BACKEND_URL;
   // Fetch all notes from the backend when the component mounts
   useEffect(() => {
-    fetch("http://localhost:5000/notes")
+    fetch(`${BACKEND_URL}`)
       .then((response) => response.json())
       .then((data) => setNotes(data))
       .catch((error) => console.error("Error fetching notes:", error));
@@ -20,7 +19,7 @@ function App() {
 
   // Function to delete a note by its id
   function deleteNote(id) {
-    fetch(`http://localhost:5000/notes/${id}`, {
+    fetch(`${BACKEND_URL}${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -32,7 +31,7 @@ function App() {
 
   // Function to mark/unmark a note
   function markNote(id) {
-    fetch(`http://localhost:5000/notes/${id}/mark`, {
+    fetch(`${BACKEND_URL}${id}/mark`, {
       method: "PATCH",
     })
       .then((response) => response.json())

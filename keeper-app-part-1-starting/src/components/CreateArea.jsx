@@ -11,7 +11,7 @@ function CreateArea(props) {
     content: "",
     marked: false,  // Initialize the marked field
   });
-
+   const BACKEND_URL=process.env.REACT_APP_BACKEND_URL
   function handleChange(event) {
     const { name, value } = event.target;
 
@@ -25,7 +25,7 @@ function CreateArea(props) {
 
   function submitNote(event) {
     event.preventDefault();
-    fetch("http://localhost:5000/notes", {
+    fetch(`${BACKEND_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
