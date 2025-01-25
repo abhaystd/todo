@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const Note = require("./models/noteModel");
+require('dotenv').config()
 
 const app = express();
 
@@ -13,17 +14,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB (replace <DB_CONNECTION_STRING> with your actual MongoDB URI)
-mongoose
-  .connect("mongodb://localhost:27017/notesDB", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.error("Error connecting to MongoDB", err);
-  });
+
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => console.log("MongoDB connected"))
+    .catch((err) => console.log(err));
 
 // API routes
 
